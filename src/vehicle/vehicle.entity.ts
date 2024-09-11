@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
 @Entity()
@@ -19,9 +20,11 @@ export class Vehicle {
   @Column()
   type: string;
 
+  // Relation avec l'entité Spot
   @OneToOne(() => Spot, (spot) => spot.vehicle)
   spot: Spot;
 
+  // Relation avec l'entité Spot
   @OneToMany(() => Ticket, (ticket) => ticket.vehicle)
   tickets: Ticket[];
 }

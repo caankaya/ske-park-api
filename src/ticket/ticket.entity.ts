@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Spot } from '../spot/spot.entity';
 import { Vehicle } from 'src/vehicle/vehicle.entity';
 
@@ -8,17 +14,24 @@ export class Ticket {
   id: number;
 
   @Column()
-  date_heure_emission: Date;
+  reference: string;
 
   @Column()
-  duree_estimation: number;
+  start_time: Date;
+
+  @Column()
+  end_time: Date;
 
   @Column('decimal')
   montant: number;
 
+  // Relation avec l'entité Spot
   @ManyToOne(() => Spot, (spot) => spot.tickets)
+  @JoinColumn({ name: 'id_spot' })
   spot: Spot;
 
+  // Relation avec l'entité Spot
   @ManyToOne(() => Vehicle, (vehicle) => vehicle.tickets)
+  @JoinColumn({ name: 'id_vehicle' })
   vehicle: Vehicle;
 }
