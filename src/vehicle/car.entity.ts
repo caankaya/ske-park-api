@@ -1,3 +1,5 @@
+import { Spot } from 'src/spot/spot.entity';
+import { Ticket } from 'src/ticket/ticket.entity';
 import {
   Entity,
   Column,
@@ -5,11 +7,9 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm';
-import { Spot } from './spot.entity';
-import { Ticket } from './ticket.entity';
 
 @Entity()
-export class Car {
+export class Vehicle {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -19,9 +19,9 @@ export class Car {
   @Column()
   type: string;
 
-  @OneToOne(() => Spot, (spot) => spot.car)
+  @OneToOne(() => Spot, (spot) => spot.vehicle)
   spot: Spot;
 
-  @OneToMany(() => Ticket, (ticket) => ticket.car)
+  @OneToMany(() => Ticket, (ticket) => ticket.vehicle)
   tickets: Ticket[];
 }

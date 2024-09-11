@@ -5,8 +5,8 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm';
-import { Car } from './car.entity';
-import { Ticket } from './ticket.entity';
+import { Vehicle } from 'src/vehicle/car.entity';
+import { Ticket } from 'src/ticket/ticket.entity';
 
 @Entity()
 export class Spot {
@@ -19,8 +19,8 @@ export class Spot {
   @Column({ default: true })
   etat: boolean;
 
-  @OneToOne(() => Car, (car) => car.spot)
-  car: Car;
+  @OneToOne(() => Vehicle, (vehicle) => vehicle.spot)
+  vehicle: Vehicle;
 
   @OneToMany(() => Ticket, (ticket) => ticket.spot)
   tickets: Ticket[];

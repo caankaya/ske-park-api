@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
-import { Spot } from './spot.entity';
-import { Car } from './car.entity';
+import { Spot } from '../spot/spot.entity';
+import { Vehicle } from 'src/vehicle/car.entity';
 
 @Entity()
 export class Ticket {
@@ -19,6 +19,6 @@ export class Ticket {
   @ManyToOne(() => Spot, (spot) => spot.tickets)
   spot: Spot;
 
-  @ManyToOne(() => Car, (car) => car.tickets)
-  car: Car;
+  @ManyToOne(() => Vehicle, (vehicle) => vehicle.tickets)
+  vehicle: Vehicle;
 }
