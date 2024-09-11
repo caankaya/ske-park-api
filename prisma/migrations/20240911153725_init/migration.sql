@@ -40,21 +40,21 @@ ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_id_vehicle_fkey" FOREIGN KEY ("id_ve
 
 -- Insérer des données dans la table Spot
 INSERT INTO "Spot" ("number", "state") VALUES
-(101, false),  -- Spot 1, occupé
-(102, false),  -- Spot 2, occupé
-(103, true),   -- Spot 3, libre
-(104, true),   -- Spot 4, libre
-(105, false),  -- Spot 5, occupé
-(106, true);   -- Spot 6, libre
+(101, false),  
+(102, false),  
+(103, true),  
+(104, true),  
+(105, false),  
+(106, true);  
 
 -- Insérer des données dans la table Vehicle
 INSERT INTO "Vehicle" ("immatriculation", "type") VALUES
-('ABC-123-DE', 'Car'),  -- Voiture 1
-('FGH-456-IJ', 'Car'),  -- Voiture 2
-('KLM-789-NO', 'Motor'); -- Moto
+('ABC-123-DE', 'Car'),  
+('FGH-456-IJ', 'Car'),  
+('KLM-789-NO', 'Motor'); 
 
 -- Insérer des données dans la table Ticket
 INSERT INTO "Ticket" ("reference", "start_time", "id_spot", "id_vehicle") VALUES
-('A3B7C9D1', '2024-09-11T08:00:00', 1, 1),  -- Ticket pour la Voiture 1 dans Spot 1
-('F8G2H6J4', '2024-09-11T09:00:00', 2, 2),  -- Ticket pour la Voiture 2 dans Spot 2
-('K1L5M3N9', '2024-09-11T07:30:00', 5, 3);  -- Ticket pour la Moto dans Spot 5
+('A3B7C9D1', '2024-09-11T08:00:00', 1, 1),
+('F8G2H6J4', '2024-09-11T09:00:00', 2, 2),  
+('K1L5M3N9', '2024-09-11T07:30:00', 5, 3);
