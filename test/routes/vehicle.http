@@ -1,4 +1,4 @@
-@baseUrl=http://localhost:3000/vehicle
+@baseUrl=http://localhost:3000/vehicles
 
 
 ### Get all vehicles

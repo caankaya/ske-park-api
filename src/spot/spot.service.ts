@@ -1,31 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { Spot } from './spot.entity';
-import { DataSource } from 'typeorm';
-
-const spot = 'spot';
-const vehicle = 'vehicle';
-const ticket = 'ticket';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class SpotService {
-  constructor(private dataSource: DataSource) {}
+  constructor(private prisma: PrismaService) {}
 
-  async readAll(): Promise<Spot[] | null> {
-    return await this.dataSource.query(
-      `SELECT 
-         "${spot}".id AS spot_id, 
-         "${spot}".numero AS spot_number, 
-         "${spot}".etat, 
-         "${ticket}".reference AS ticket_reference, 
-         "${ticket}".montant AS ticket_montant, 
-         "${ticket}".start_time,
-         "${vehicle}".immatriculation AS vehicle_immatriculation, 
-         "${vehicle}".type AS vehicle_type
-       FROM "${spot}" 
-       LEFT JOIN "${ticket}" ON "${spot}".id = "${ticket}".id_spot 
-       LEFT JOIN "${vehicle}" ON "${vehicle}".id = "${ticket}".id_vehicle
-       ORDER BY "${spot}".id ASC
-       `,
-    );
+  async readAll() {
+    return this.prisma.spot.findMany({
+      include: {
+        tickets: {
+          include: {
+            vehicle: true,
+          },
+        },
+      },
+    });
   }
 }

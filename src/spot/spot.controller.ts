@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { SpotService } from './spot.service';
-import { Spot } from './spot.entity';
+import { Spot } from '@prisma/client';
 
 @Controller('spots')
 export class SpotController {

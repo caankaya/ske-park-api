@@ -1,13 +1,26 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, NotFoundException } from '@nestjs/common';
 import { VehicleService } from './vehicle.service';
-import { Vehicle } from './vehicle.entity';
+import { Vehicle } from '@prisma/client';
 
-@Controller('vehicle')
+@Controller('vehicles')
 export class VehicleController {
   constructor(private readonly vehicleService: VehicleService) {}
 
   @Get('all')
-  async getAllVehicles(): Promise<Vehicle[] | null> {
-    return this.vehicleService.readAll();
+  async getAllVehicles(): Promise<{
+    cars: Vehicle[];
+    motors: Vehicle[];
+  } | null> {
+    try {
+      const results = await this.vehicleService.readAll();
+      const cars = results.filter((e) => e.type === 'Car');
+      const motors = results.filter((e) => e.type === 'Motor');
+
+      // Utiliser la syntaxe correcte pour créer un objet
+      return { cars, motors };
+    } catch (error) {
+      console.warn(error);
+      throw new NotFoundException("Il n'y a pas de véhicules dans le parking");
+    }
   }
 }

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { DataSource } from 'typeorm';
-import { Vehicle } from './vehicle.entity';
+import { Vehicle } from '@prisma/client';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 const vehicle = 'vehicle';
 
 @Injectable()
 export class VehicleService {
-  constructor(private dataSource: DataSource) {}
+  constructor(private prisma: PrismaService) {}
 
   async readAll(): Promise<Vehicle[] | null> {
-    return this.dataSource.query(`SELECT * FROM "${vehicle}"`);
+    return await this.prisma.vehicle.findMany();
   }
 }
