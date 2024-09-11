@@ -5,7 +5,7 @@ import {
   OneToOne,
   OneToMany,
 } from 'typeorm';
-import { Vehicle } from 'src/vehicle/car.entity';
+import { Vehicle } from 'src/vehicle/vehicle.entity';
 import { Ticket } from 'src/ticket/ticket.entity';
 
 @Entity()

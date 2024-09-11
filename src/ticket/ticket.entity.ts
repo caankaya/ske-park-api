@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Spot } from '../spot/spot.entity';
-import { Vehicle } from 'src/vehicle/car.entity';
+import { Vehicle } from 'src/vehicle/vehicle.entity';
 
 @Entity()
 export class Ticket {
