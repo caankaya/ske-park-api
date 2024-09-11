@@ -14,10 +14,11 @@ export class SpotService {
     return await this.dataSource.query(
       `SELECT 
          "${spot}".id AS spot_id, 
-         "${spot}".numero, 
+         "${spot}".numero AS spot_number, 
          "${spot}".etat, 
          "${ticket}".reference AS ticket_reference, 
          "${ticket}".montant AS ticket_montant, 
+         "${ticket}".start_time,
          "${vehicle}".immatriculation AS vehicle_immatriculation, 
          "${vehicle}".type AS vehicle_type
        FROM "${spot}" 

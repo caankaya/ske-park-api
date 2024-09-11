@@ -7,6 +7,8 @@ import { Spot } from 'src/spot/spot.entity';
 import { DataSource } from 'typeorm';
 import { Ticket } from 'src/ticket/ticket.entity';
 import { Vehicle } from 'src/vehicle/vehicle.entity';
+import { VehicleController } from 'src/vehicle/vehicle.controller';
+import { VehicleService } from 'src/vehicle/vehicle.service';
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { Vehicle } from 'src/vehicle/vehicle.entity';
     }),
   ],
 
-  controllers: [SpotController],
-  providers: [SpotService],
+  controllers: [SpotController, VehicleController],
+  providers: [SpotService, VehicleService],
 })
 export class AppModule {}

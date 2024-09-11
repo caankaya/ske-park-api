@@ -1,0 +1,5 @@
+@baseUrl=http://localhost:3000/vehicle
+
+
+### Get all vehicles
+GET {{baseUrl}}/all HTTP/1.1

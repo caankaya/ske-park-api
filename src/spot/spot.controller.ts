@@ -8,8 +8,6 @@ export class SpotController {
 
   @Get('all')
   async getAllSpots(): Promise<Spot[] | null> {
-    const results = await this.spotService.readAll();
-    console.log('results :', results);
-    return results;
+    return await this.spotService.readAll();
   }
 }
