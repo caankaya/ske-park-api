@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { Ticket } from '@prisma/client';
+import { Ticket, Vehicle } from '@prisma/client';
 import { CreateTicketDto } from '../dto/createTicket.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { tikcetReference } from 'src/dto/ticketReference.dto';
+
+type TicketWithVehicle = Ticket & {
+  vehicle: Vehicle; // Ajouter la relation 'vehicle'
+};
 
 @Injectable()
 export class TicketService {
@@ -18,10 +23,21 @@ export class TicketService {
     });
   }
 
-  async readOne(reference: string): Promise<Ticket | null> {
-    return await this.prisma.ticket.findFirst({
+  async readOne(reference: string): Promise<TicketWithVehicle | null> {
+    return await this.prisma.ticket.findUnique({
       where: {
         reference: reference,
+      },
+      include: {
+        vehicle: true,
+      },
+    });
+  }
+
+  async delete(tikcetReference: tikcetReference): Promise<Ticket | null> {
+    return await this.prisma.ticket.delete({
+      where: {
+        reference: tikcetReference.reference,
       },
     });
   }

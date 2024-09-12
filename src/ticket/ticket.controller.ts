@@ -4,12 +4,17 @@ import {
   Post,
   Body,
   ConflictException,
+  Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { TicketService } from './ticket.service';
 import { VehicleService } from 'src/vehicle/vehicle.service';
 import { SpotService } from 'src/spot/spot.service';
 import { Ticket, VehicleType } from '@prisma/client';
 import { entryVehicle } from '../dto/entryVehicle.dto';
+import { CreateTicketDto } from 'src/dto/createTicket.dto';
+import { tikcetReference } from 'src/dto/ticketReference.dto';
 
 @Controller('ticket')
 export class TicketController {
@@ -28,7 +33,7 @@ export class TicketController {
 
       // Vérifier si le véhicule est déja dans le parking et qui a un ticket en cours
       const existingTicket = await this.vehicleService.readOne(immatriculation);
-      console.log('existingTicket :', existingTicket);
+
       if (existingTicket) {
         throw new ConflictException('Le véhicule est déja dans le parking');
       }
@@ -73,6 +78,50 @@ export class TicketController {
 
       return {
         message: 'Ticket a été créé avec succès',
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Post('/delete')
+  async deleteTicket(@Body() ticketReference: tikcetReference): Promise<{
+    message: string;
+  }> {
+    try {
+      if (!ticketReference) {
+        throw new HttpException(
+          'Le numéro de référence est requis',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      // Vérifier si le ticket et la voiture qui est attaché à ce qui ticket existent
+      const ticket = await this.ticketService.readOne(
+        ticketReference.reference,
+      );
+
+      console.log('ticket :', ticket);
+
+      if (!ticket || !ticket.vehicle) {
+        throw new ConflictException("Le ticket n'est pas valide");
+      }
+
+      // Supprimer le ticket
+      await this.ticketService.delete(ticketReference);
+
+      // Supprimer le véhicule
+      await this.vehicleService.delete(ticket.vehicle.immatriculation);
+
+      // Changer l'état de la place en 'libre' (true)
+      await this.spotService.update({
+        number: ticketReference.spotNumber,
+        column: 'state',
+        value: true,
+      });
+
+      return {
+        message: 'Le ticket a été supprimé, et la place est désormais libre.',
       };
     } catch (error) {
       console.warn(error);

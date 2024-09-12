@@ -16,12 +16,7 @@ export class VehicleService {
         immatriculation: immatriculation,
       },
       include: {
-        tickets: {
-          where: {
-            end_time: null,
-            amount: null,
-          },
-        },
+        tickets: true,
       },
     });
   }
@@ -37,5 +32,13 @@ export class VehicleService {
       },
     });
     return vehicle; // Retourne le véhicule créé
+  }
+
+  async delete(immatriculation: string): Promise<Vehicle | null> {
+    return this.prisma.vehicle.delete({
+      where: {
+        immatriculation: immatriculation,
+      },
+    });
   }
 }

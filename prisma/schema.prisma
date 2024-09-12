@@ -22,15 +22,14 @@ model Spot {
 
 model Ticket {
   id          Int       @id @default(autoincrement())
-  reference   String?
+  reference   String    @unique
   start_time  DateTime?
-  end_time    DateTime?
-  amount      Float?
   spot        Spot      @relation(fields: [spot_number], references: [number])
   spot_number Int
-  vehicle     Vehicle   @relation(fields: [id_vehicle], references: [id])
+  vehicle     Vehicle   @relation(fields: [id_vehicle], references: [id], onDelete: Cascade)
   id_vehicle  Int
 }
+
 
 enum VehicleType {
   Car

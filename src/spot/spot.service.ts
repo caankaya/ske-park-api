@@ -10,10 +10,6 @@ export class SpotService {
     return this.prisma.spot.findMany({
       include: {
         tickets: {
-          // Filter les tickets qui sont payés
-          where: {
-            end_time: null,
-          },
           include: {
             vehicle: true,
           },
