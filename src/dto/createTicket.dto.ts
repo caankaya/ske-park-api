@@ -15,6 +15,10 @@ export class CreateTicketDto {
   @Max(106, { message: 'Le numéro de place doit être au maximum 106.' })
   spot_number: number;
 
-  @IsNumber({}, { message: "L'ID du véhicule doit être un nombre." })
-  id_vehicle: number;
+  @IsString()
+  @Matches(/^[A-Z]{2,3}-\d{2,3}-[A-Z]{2,3}$/, {
+    message:
+      "Le format de l'immatriculation est invalide. Format attendu : AA-123-AA ou AAA-123-AAA",
+  })
+  id_vehicle: string;
 }

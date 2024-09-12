@@ -70,7 +70,7 @@ export class TicketController {
         reference: reference,
         start_time: new Date(),
         spot_number: number,
-        id_vehicle: vehicle.id,
+        id_vehicle: vehicle.immatriculation,
       };
 
       // Finalement je crée le ticket et je retourne un message de succès

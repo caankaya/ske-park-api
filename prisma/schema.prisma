@@ -8,8 +8,7 @@ datasource db {
 }
 
 model Vehicle {
-  id              Int         @id @default(autoincrement())
-  immatriculation String    @unique  @db.Text
+  immatriculation String    @id  @db.Text
   type            VehicleType
   tickets         Ticket[]
 }
@@ -21,17 +20,17 @@ model Spot {
 }
 
 model Ticket {
-  id          Int       @id @default(autoincrement())
-  reference   String    @unique
+  reference   String    @id
   start_time  DateTime?
   spot        Spot      @relation(fields: [spot_number], references: [number])
   spot_number Int
-  vehicle     Vehicle   @relation(fields: [id_vehicle], references: [id], onDelete: Cascade)
-  id_vehicle  Int
+  vehicle     Vehicle   @relation(fields: [id_vehicle], references: [immatriculation], onDelete: Cascade)
+  id_vehicle  String
 }
-
 
 enum VehicleType {
   Car
   Motor
 }
+
+
