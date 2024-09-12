@@ -8,28 +8,27 @@ datasource db {
 }
 
 model Vehicle {
-  id             Int      @id @default(autoincrement())
-  immatriculation String?  @db.Text
-  type           VehicleType
-  tickets        Ticket[]
+  id              Int         @id @default(autoincrement())
+  immatriculation String    @unique  @db.Text
+  type            VehicleType
+  tickets         Ticket[]
 }
 
 model Spot {
-  id     Int     @id @default(autoincrement())
-  number Int
-  state  Boolean @default(true)
+  number  Int      @id
+  state   Boolean  @default(true)
   tickets Ticket[]
 }
 
 model Ticket {
-  id         Int      @id @default(autoincrement())
-  reference  String?
-  start_time DateTime?
-  end_time   DateTime?
-  amount     Float?
-  spot       Spot     @relation(fields: [id_spot], references: [id])
-  id_spot    Int
-  vehicle    Vehicle  @relation(fields: [id_vehicle], references: [id])
+  id          Int       @id @default(autoincrement())
+  reference   String?
+  start_time  DateTime?
+  end_time    DateTime?
+  amount      Float?
+  spot        Spot      @relation(fields: [spot_number], references: [number])
+  spot_number Int
+  vehicle     Vehicle   @relation(fields: [id_vehicle], references: [id])
   id_vehicle  Int
 }
 

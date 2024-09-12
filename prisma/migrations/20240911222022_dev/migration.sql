@@ -12,11 +12,10 @@ CREATE TABLE "Vehicle" (
 
 -- CreateTable
 CREATE TABLE "Spot" (
-    "id" SERIAL NOT NULL,
     "number" INTEGER NOT NULL,
     "state" BOOLEAN NOT NULL DEFAULT true,
 
-    CONSTRAINT "Spot_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "Spot_pkey" PRIMARY KEY ("number")
 );
 
 -- CreateTable
@@ -26,14 +25,14 @@ CREATE TABLE "Ticket" (
     "start_time" TIMESTAMP(3),
     "end_time" TIMESTAMP(3),
     "amount" DOUBLE PRECISION,
-    "id_spot" INTEGER NOT NULL,
+    "spot_number" INTEGER NOT NULL,
     "id_vehicle" INTEGER NOT NULL,
 
     CONSTRAINT "Ticket_pkey" PRIMARY KEY ("id")
 );
 
 -- AddForeignKey
-ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_id_spot_fkey" FOREIGN KEY ("id_spot") REFERENCES "Spot"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_spot_number_fkey" FOREIGN KEY ("spot_number") REFERENCES "Spot"("number") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_id_vehicle_fkey" FOREIGN KEY ("id_vehicle") REFERENCES "Vehicle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -54,7 +53,7 @@ INSERT INTO "Vehicle" ("immatriculation", "type") VALUES
 ('KLM-789-NO', 'Motor'); 
 
 -- Insérer des données dans la table Ticket
-INSERT INTO "Ticket" ("reference", "start_time", "id_spot", "id_vehicle") VALUES
-('A3B7C9D1', '2024-09-11T08:00:00', 1, 1),
-('F8G2H6J4', '2024-09-11T09:00:00', 2, 2),  
-('K1L5M3N9', '2024-09-11T07:30:00', 5, 3);
+INSERT INTO "Ticket" ("reference", "start_time", "spot_number", "id_vehicle") VALUES
+('A3B7C9D1', '2024-09-11T08:00:00', 101, 1),
+('F8G2H6J4', '2024-09-11T09:00:00', 102, 2),  
+('K1L5M3N9', '2024-09-11T07:30:00', 105, 3);

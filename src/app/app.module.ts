@@ -5,6 +5,8 @@ import { SpotService } from 'src/spot/spot.service';
 import { VehicleController } from 'src/vehicle/vehicle.controller';
 import { VehicleService } from 'src/vehicle/vehicle.service';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { TicketService } from 'src/ticket/ticket.service';
+import { TicketController } from 'src/ticket/ticket.controller';
 
 @Module({
   imports: [
@@ -13,7 +15,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
     }),
   ],
 
-  controllers: [SpotController, VehicleController],
-  providers: [SpotService, VehicleService, PrismaService],
+  controllers: [SpotController, VehicleController, TicketController],
+  providers: [SpotService, VehicleService, TicketService, PrismaService],
 })
 export class AppModule {}
