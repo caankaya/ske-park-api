@@ -101,8 +101,6 @@ export class TicketController {
         ticketReference.reference,
       );
 
-      console.log('ticket :', ticket);
-
       if (!ticket || !ticket.vehicle) {
         throw new ConflictException("Le ticket n'est pas valide");
       }
