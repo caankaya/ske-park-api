@@ -16,7 +16,7 @@ DATABASE_URL=postgres://park:login@127.0.0.1:5432/park?schema=public
 
    ```bash
    git clone https://github.com/caankaya/ske-park-api.git
-   cd ske-park-backend
+   cd ske-park-api
    ```
 
 2. Installez les dépendances :
@@ -30,9 +30,20 @@ DATABASE_URL=postgres://park:login@127.0.0.1:5432/park?schema=public
    ```bash
    npm run dev
    ```
+
 ## Test
 
+Si vous voulez voir le résultat des tests, veuillez d'abord réinitialiser la base de données avec la commande suivante :
 
+```bash
+npx prisma migrate reset
+```
+
+En suite pour voir le resultat des tests
+
+```bash
+npm run test
+```
 
 ## Aide
 
