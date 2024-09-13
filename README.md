@@ -15,7 +15,7 @@ DATABASE_URL=postgres://park:login@127.0.0.1:5432/park?schema=public
 1. Clonez le dépôt :
 
    ```bash
-   git clone <https://github.com/caankaya/ske-park-api.git>
+   git clone https://github.com/caankaya/ske-park-api.git
    cd ske-park-backend
    ```
 
@@ -30,6 +30,9 @@ DATABASE_URL=postgres://park:login@127.0.0.1:5432/park?schema=public
    ```bash
    npm run dev
    ```
+## Test
+
+
 
 ## Aide
 
