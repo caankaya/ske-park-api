@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class SpotService {
   constructor(private prisma: PrismaService) {}
 
-  async readAll() {
+  async readAll(): Promise<Spot[] | null> {
     return this.prisma.spot.findMany({
       include: {
         tickets: {
@@ -29,13 +29,21 @@ export class SpotService {
     });
   }
 
-  async update({ number, column, value }) {
+  async update({
+    number,
+    column,
+    value,
+  }: {
+    number: number;
+    column: string;
+    value: boolean;
+  }): Promise<Spot> {
     return this.prisma.spot.update({
       where: {
-        number: number, // Utiliser le champ number pour la recherche
+        number: number,
       },
       data: {
-        [column]: value, // Utilisation de la clé dynamique
+        [column]: value,
       },
     });
   }

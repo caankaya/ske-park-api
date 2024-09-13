@@ -5,12 +5,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { tikcetReference } from 'src/dto/ticketReference.dto';
 
 type TicketWithVehicle = Ticket & {
-  vehicle: Vehicle; // Ajouter la relation 'vehicle'
+  vehicle: Vehicle;
 };
 
 @Injectable()
 export class TicketService {
   constructor(private readonly prisma: PrismaService) {}
+
   async create(createTicketDto: CreateTicketDto): Promise<Ticket | null> {
     const { id_vehicle, reference, spot_number, start_time } = createTicketDto;
     return await this.prisma.ticket.create({

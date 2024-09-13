@@ -1,12 +1,21 @@
 import { Controller, Get, NotFoundException } from '@nestjs/common';
 import { SpotService } from './spot.service';
+import { Spot } from '@prisma/client';
+
+interface GetAllSpotsResponse {
+  spots: Spot[];
+  total: number;
+  available: number;
+  busy: number;
+  busyPercentage: string; // pourcentage sous forme de string
+}
 
 @Controller('spots')
 export class SpotController {
   constructor(private readonly spotService: SpotService) {}
 
   @Get('all')
-  async getAllSpots() {
+  async getAllSpots(): Promise<GetAllSpotsResponse> {
     try {
       // Récupère toutes les places via le service
       const spots = await this.spotService.readAll();
